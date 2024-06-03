@@ -1,0 +1,30 @@
+﻿<Window x:Class="WpfApp1.MillitaryRegWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Паспортные данные" Height="253" Width="800">
+    <Grid Margin="0,0,0,7">
+        <Label Content="Группа учета" HorizontalAlignment="Left" Margin="21,12,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="147,16,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Категория учета" HorizontalAlignment="Left" Margin="21,42,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="147,46,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Состав" HorizontalAlignment="Left" Margin="21,73,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="147,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Воинское звание" HorizontalAlignment="Left" Margin="21,106,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="147,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Воееная учетная специальность №" HorizontalAlignment="Left" Margin="350,16,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="616,16,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Годность к военной службе" HorizontalAlignment="Left" Margin="343,51,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="616,46,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Название райвоенкомата по месту жительства" HorizontalAlignment="Left" Margin="343,82,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="616,86,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Состоит ли на специальном учете № " HorizontalAlignment="Left" Margin="343,115,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="616,119,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Сохранить" HorizontalAlignment="Left" Margin="384,172,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+
+</Window>
