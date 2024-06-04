@@ -31,7 +31,7 @@ namespace WpfApp1
             using (var connection = new SQLiteConnection("Data Source=users.db"))
             {
                 connection.Open();
-                string query = "SELECT Id, LastName, FirstName, MiddleName, Position, phone, NumberTabel FROM Employees";
+                string query = "SELECT Id, LastName, FirstName, MiddleName, Position, Phone, NumberTabel FROM Employees";
                 SQLiteCommand cmd = new SQLiteCommand(query, connection);
                 using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
@@ -86,7 +86,7 @@ namespace WpfApp1
         {
             if (EmployeesDataGrid.SelectedItem is Employee selectedEmployee)
             {
-                EditEmployeeWindow editEmployeeWindow = new EditEmployeeWindow(selectedEmployee);
+                EditEmployeeWindow editEmployeeWindow = new EditEmployeeWindow(selectedEmployee.Id);
                 if (editEmployeeWindow.ShowDialog() == true)
                 {
                     Employee editedEmployee = editEmployeeWindow.CurrentEmployee;
@@ -94,19 +94,29 @@ namespace WpfApp1
                     using (var connection = new SQLiteConnection("Data Source=users.db"))
                     {
                         connection.Open();
-                        string query = "UPDATE Employees SET LastName=@LastName, FirstName=@FirstName, MiddleName=@MiddleName, Position=@Position, Phone=@Phone, NumberTabel=@NumberTabel WHERE Id=@Id";
-                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                        cmd.Parameters.Add("@LastName", DbType.String).Value = editedEmployee.LastName;
-                        cmd.Parameters.Add("@FirstName", DbType.String).Value = editedEmployee.FirstName;
-                        cmd.Parameters.Add("@MiddleName", DbType.String).Value = editedEmployee.MiddleName;
-                        cmd.Parameters.Add("@Position", DbType.String).Value = editedEmployee.Position;
-                        cmd.Parameters.Add("@Phone", DbType.String).Value = editedEmployee.Phone;
-                        cmd.Parameters.Add("@Id", DbType.Int16).Value = selectedEmployee.Id;
-                        cmd.Parameters.Add("@NumberTabel", DbType.String).Value = editedEmployee.NumberTabel;
-                        cmd.ExecuteNonQuery();
+                        string query = "UPDATE Employees SET LastName=@LastName, FirstName=@FirstName, MiddleName=@MiddleName, Position=@Position, Phone=@Phone, NumberTabel=@NumberTabel, " +
+                            "Male=@Male, DateBrt=@DateBrt, Nation=@Nation, Family=@Family, Place=@Place, Profession=@Profession, SecProfession=@SecProfession WHERE Id=@Id";
+                        using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@LastName", editedEmployee.LastName);
+                            cmd.Parameters.AddWithValue("@FirstName", editedEmployee.FirstName);
+                            cmd.Parameters.AddWithValue("@MiddleName", editedEmployee.MiddleName);
+                            cmd.Parameters.AddWithValue("@Position", editedEmployee.Position);
+                            cmd.Parameters.AddWithValue("@Phone", editedEmployee.Phone);
+                            cmd.Parameters.AddWithValue("@Id", editedEmployee.Id);
+                            cmd.Parameters.AddWithValue("@NumberTabel", editedEmployee.NumberTabel);
+                            cmd.Parameters.AddWithValue("@Male", editedEmployee.Male);
+                            cmd.Parameters.AddWithValue("@DateBrt", editedEmployee.DateBrt);
+                            cmd.Parameters.AddWithValue("@Nation", editedEmployee.Nation);
+                            cmd.Parameters.AddWithValue("@Family", editedEmployee.Family);
+                            cmd.Parameters.AddWithValue("@Place", editedEmployee.Place);
+                            cmd.Parameters.AddWithValue("@Profession", editedEmployee.Profession);
+                            cmd.Parameters.AddWithValue("@SecProfession", editedEmployee.SecProfession);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
 
-                    LoadEmployees();
+                    LoadEmployees(); // Перезагрузка данных после редактирования
                 }
             }
         }

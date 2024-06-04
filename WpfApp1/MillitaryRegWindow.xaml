@@ -15,14 +15,14 @@
         <TextBox HorizontalAlignment="Left" Margin="147,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Label Content="Воинское звание" HorizontalAlignment="Left" Margin="21,106,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Margin="147,110,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Воееная учетная специальность №" HorizontalAlignment="Left" Margin="350,16,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="616,16,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Годность к военной службе" HorizontalAlignment="Left" Margin="343,51,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="616,46,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Военная учетная специальность №" HorizontalAlignment="Left" Margin="350,12,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="636,18,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Годность к военной службе" HorizontalAlignment="Left" Margin="350,47,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="636,53,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Label Content="Название райвоенкомата по месту жительства" HorizontalAlignment="Left" Margin="343,82,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="616,86,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="636,88,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Label Content="Состоит ли на специальном учете № " HorizontalAlignment="Left" Margin="343,115,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="616,119,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="636,121,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Button Content="Сохранить" HorizontalAlignment="Left" Margin="384,172,0,0" VerticalAlignment="Top"/>
 
     </Grid>

@@ -18,7 +18,7 @@
             <TextBox x:Name="PhoneTextBox" Margin="10,0,0,10" HorizontalAlignment="Left"  Width="145"/>
 
             <TextBlock Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Bottom"><Run Language="ru-ru" Text="Пол"/></TextBlock>
-            <ComboBox Width="145" Height="18" HorizontalAlignment="Left" Margin="10,0,0,10">
+            <ComboBox x:Name="MaleComboBox" Width="145" Height="18" HorizontalAlignment="Left" Margin="10,0,0,10">
                 <ComboBoxItem Content="М"/>
                 <ComboBoxItem/>
                 <ComboBoxItem Content="Ж"/>
@@ -26,13 +26,13 @@
             </ComboBox>
 
             <TextBlock Margin="10,0,10,0" Width="88" HorizontalAlignment="Left"><Run Language="ru-ru" Text="Дата рождения" /></TextBlock>
-            <TextBox x:Name="BirthdayTextBox" Width="145" HorizontalAlignment="Left" Margin="10,0,0,10"/>
+            <DatePicker x:Name="BirthdayDatePicker" Width="145" HorizontalAlignment="Left" Margin="10,0,0,10"/>
 
             <TextBlock Width="147" HorizontalAlignment="Left" Margin="10,0,0,0"><Run Language="ru-ru" Text="Национальность" /></TextBlock>
             <TextBox x:Name="NationalityTextBox" Width="145" Margin="0,0,0,10"/>
 
             <TextBlock Width="147" HorizontalAlignment="Left" Margin="10,0,0,0"><Run Language="ru-ru" Text="Семейное положение" /></TextBlock>
-            <TextBox x:Name="FamilySatusTextBox" Width="145" Margin="0,0,0,10"/>
+            <TextBox x:Name="FamilyStatusTextBox" Width="145" Margin="0,0,0,10"/>
             <Label Content="Место рождения" HorizontalAlignment="Left" Margin="10,0,0,0"/>
             <TextBox x:Name="BirthdayPlaceTextBox" Text="" Width="120" Height="95" HorizontalAlignment="Left" Margin="10,0,0,0"/>
 
@@ -43,10 +43,10 @@
             <TextBox x:Name="PositionTextBox" Margin="10,0,0,10" HorizontalAlignment="Left"  Width="145"/>
 
             <TextBlock Margin="10,0,0,0" HorizontalAlignment="Left"><Run Language="ru-ru" Text="Профессия"/></TextBlock>
-            <TextBox x:Name="ProfessonTextBox" Margin="10,0,0,10" HorizontalAlignment="Left"  Width="145"/>
+            <TextBox x:Name="ProfessionTextBox" Margin="10,0,0,10" HorizontalAlignment="Left"  Width="145"/>
 
             <TextBlock Margin="10,0,0,0" HorizontalAlignment="Left"><Run Language="ru-ru" Text="Вторая профессия"/></TextBlock>
-            <TextBox x:Name="secondProfessionTextBox" Margin="10,0,0,10" HorizontalAlignment="Left"  Width="145"/>
+            <TextBox x:Name="SecondProfessionTextBox" Margin="10,0,0,10" HorizontalAlignment="Left"  Width="145"/>
 
             <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0"><Run Language="ru-ru" Text="Табельный номер"/></TextBlock>
             <TextBox x:Name="PersonnelNumberTextBox"  Width="145" Margin="10,0,0,10" HorizontalAlignment="Left"/>
