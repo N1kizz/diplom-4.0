@@ -5,7 +5,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows;
-
+// 124124124142
 namespace WpfApp1
 {
     public partial class EmployeesWindow : Window
@@ -31,7 +31,7 @@ namespace WpfApp1
             using (var connection = new SQLiteConnection("Data Source=users.db"))
             {
                 connection.Open();
-                string query = "SELECT * FROM Employees";
+                string query = "SELECT Id, LastName, FirstName, MiddleName, Position, phone, NumberTabel FROM Employees";
                 SQLiteCommand cmd = new SQLiteCommand(query, connection);
                 using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
@@ -40,12 +40,12 @@ namespace WpfApp1
                         Employees.Add(new Employee
                         {
                             Id = reader.GetInt32(0),
-                            LastName = reader.GetString(1),
-                            FirstName = reader.GetString(2),
-                            MiddleName = reader.GetString(3),
-                            Position = reader.GetString(4),
-                            Phone = reader.GetString(5),
-                            NumberTabel = reader.GetString(6)
+                            LastName = reader["LastName"].ToString(),
+                            FirstName = reader["FirstName"].ToString(),
+                            MiddleName = reader["MiddleName"].ToString(),
+                            Position = reader["Position"].ToString(),
+                            Phone = reader["Phone"].ToString(),
+                            NumberTabel = reader["NumberTabel"].ToString(), // Добавляем новое поле
                         });
                     }
                 }
@@ -102,6 +102,7 @@ namespace WpfApp1
                         cmd.Parameters.Add("@Position", DbType.String).Value = editedEmployee.Position;
                         cmd.Parameters.Add("@Phone", DbType.String).Value = editedEmployee.Phone;
                         cmd.Parameters.Add("@Id", DbType.Int16).Value = selectedEmployee.Id;
+                        cmd.Parameters.Add("@NumberTabel", DbType.String).Value = editedEmployee.NumberTabel;
                         cmd.ExecuteNonQuery();
                     }
 
