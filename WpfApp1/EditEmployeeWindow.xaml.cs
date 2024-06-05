@@ -8,33 +8,31 @@ namespace WpfApp1
     public partial class EditEmployeeWindow : Window
     {
         public Employee CurrentEmployee { get; private set; }
+        private int _employeeId;
+        private WpfApp1.TempIDData _tempPassportData;
 
         public EditEmployeeWindow(int employeeId)
         {
             InitializeComponent();
-            LoadEmployeeFromDatabase(employeeId);
-            if (CurrentEmployee != null)
-            {
-                DataContext = CurrentEmployee;
-                // Заполняем поля значениями из CurrentEmployee
-                LastNameTextBox.Text = CurrentEmployee.LastName;
-                FirstNameTextBox.Text = CurrentEmployee.FirstName;
-                MiddleNameTextBox.Text = CurrentEmployee.MiddleName;
-                PositionTextBox.Text = CurrentEmployee.Position;
-                PhoneTextBox.Text = CurrentEmployee.Phone;
-                PersonnelNumberTextBox.Text = CurrentEmployee.NumberTabel;
-                MaleComboBox.Text = CurrentEmployee.Male;
-                BirthdayDatePicker.Text = CurrentEmployee.DateBrt;
-                NationalityTextBox.Text = CurrentEmployee.Nation;
-                FamilyStatusTextBox.Text = CurrentEmployee.Family;
-                BirthdayPlaceTextBox.Text = CurrentEmployee.Place;
-                ProfessionTextBox.Text = CurrentEmployee.Profession;
-                SecondProfessionTextBox.Text = CurrentEmployee.SecProfession;
-            }
-            else
-            {
-                MessageBox.Show("Не удалось загрузить данные сотрудника из базы данных.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            _employeeId = employeeId; // присваиваем значение переменной
+            LoadEmployeeFromDatabase(_employeeId);
+            LoadPassportDataFromDatabase(_employeeId);
+            DataContext = CurrentEmployee;
+
+            // Заполняем поля значениями из CurrentEmployee
+            LastNameTextBox.Text = CurrentEmployee.LastName;
+            FirstNameTextBox.Text = CurrentEmployee.FirstName;
+            MiddleNameTextBox.Text = CurrentEmployee.MiddleName;
+            PositionTextBox.Text = CurrentEmployee.Position;
+            PhoneTextBox.Text = CurrentEmployee.Phone;
+            PersonnelNumberTextBox.Text = CurrentEmployee.NumberTabel;
+            MaleComboBox.Text = CurrentEmployee.Male;
+            BirthdayDatePicker.Text = CurrentEmployee.DateBrt;
+            NationalityTextBox.Text = CurrentEmployee.Nation;
+            FamilyStatusTextBox.Text = CurrentEmployee.Family;
+            BirthdayPlaceTextBox.Text = CurrentEmployee.Place;
+            ProfessionTextBox.Text = CurrentEmployee.Profession;
+            SecondProfessionTextBox.Text = CurrentEmployee.SecProfession;
         }
 
         private void LoadEmployeeFromDatabase(int employeeId)
@@ -76,6 +74,37 @@ namespace WpfApp1
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Ошибка при загрузке данных из базы данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+        private void LoadPassportDataFromDatabase(int employeeId)
+        {
+            using (var connection = new SQLiteConnection("Data Source=users.db"))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM PassportData WHERE EmployeeId = @EmployeeId";
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                _tempPassportData = new TempIDData
+                                {
+                                    PassportNumber = reader.IsDBNull(reader.GetOrdinal("PassportNumber")) ? string.Empty : reader.GetString(reader.GetOrdinal("PassportNumber")),
+                                    IssuedBy = reader.IsDBNull(reader.GetOrdinal("IssuedBy")) ? string.Empty : reader.GetString(reader.GetOrdinal("IssuedBy")),
+                                    IssueDate = reader.IsDBNull(reader.GetOrdinal("IssueDate")) ? DateTime.MinValue : reader.GetDateTime(reader.GetOrdinal("IssueDate"))
+                                };
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при загрузке паспортных данных из базы данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -124,15 +153,28 @@ namespace WpfApp1
             DialogResult = true;
             Close();
         }
-
         private void IdButton_Click(object sender, RoutedEventArgs e)
         {
-            // Обработка нажатия кнопки Id
+            if (_tempPassportData != null)
+            {
+                EditIdDataWindow passportDataWindow = new EditIdDataWindow(_tempPassportData, _employeeId);
+                if (passportDataWindow.ShowDialog() == true)
+                {
+                    _tempPassportData = passportDataWindow.GetTempPassportData();
+                }
+            }
         }
 
         private void MillitaryRegButton_Click(object sender, RoutedEventArgs e)
         {
             // Обработка нажатия кнопки MillitaryReg
+        }
+        public class EditTempIDData
+        {
+            public string PassportNumber { get; set; }
+            public string IdNumber { get; set; }
+            public string IssuedBy { get; set; }
+            public DateTime IssueDate { get; set; }
         }
     }
 }

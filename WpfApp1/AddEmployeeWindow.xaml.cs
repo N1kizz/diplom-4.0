@@ -15,11 +15,13 @@ namespace WpfApp1
     {
         public Employee NewEmployee { get; private set; }
         private ObservableCollection<Employee> _employees;
+        private TempIDData _tempPassportData;
 
         public AddEmployeeWindow(ObservableCollection<Employee> employees)
         {
             InitializeComponent();
             _employees = employees;
+            _tempPassportData = new TempIDData();
         }
 
         SaveFileDialog fd = new SaveFileDialog();
@@ -52,6 +54,8 @@ namespace WpfApp1
                     MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+
+                int employeeId = GetNextEmployeeId();
 
                 string Surname = LastNameTextBox.Text;
                 string Name = FirstNameTextBox.Text;
@@ -97,6 +101,20 @@ namespace WpfApp1
                 using (var connection = new SQLiteConnection("Data Source=users.db"))
                 {
                     connection.Open();
+                    string query = "INSERT INTO PassportData (EmployeeId, PassportNumber, IssuedBy, IssueDate) VALUES (@EmployeeId, @PassportNumber, @IssuedBy, @IssueDate)";
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@EmployeeId", employeeId); // Здесь должно быть значение ID сотрудника
+                        cmd.Parameters.AddWithValue("@PassportNumber", _tempPassportData.PassportNumber);
+                        cmd.Parameters.AddWithValue("@IssuedBy", _tempPassportData.IssuedBy);
+                        cmd.Parameters.AddWithValue("@IssueDate", _tempPassportData.IssueDate.ToString("yyyy-MM-dd")); // Предполагается, что IssueDate типа DateTime
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                using (var connection = new SQLiteConnection("Data Source=users.db"))
+                {
+                    connection.Open();
                     string query = "INSERT INTO Employees (LastName, FirstName, MiddleName, Position, Phone, Male, DateBrt, Nation, Family, Place, Profession, SecProfession, NumberTabel) " +
                         "VALUES (@LastName, @FirstName, @MiddleName, @Position, @Phone, @Male, @DateBrt, @Nation, @Family, @Place, @Profession, @SecProfession, @NumberTabel)";
                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
@@ -128,8 +146,11 @@ namespace WpfApp1
 
         private void IdButton_Click(object sender, RoutedEventArgs e)
         {
-            IdDataWindow window = new IdDataWindow();
-            window.ShowDialog();
+            IdDataWindow passportDataWindow = new IdDataWindow();
+            if (passportDataWindow.ShowDialog() == true)
+            {
+                _tempPassportData = passportDataWindow.GetTempPassportData();
+            }
         }
 
         private void MillitaryRegButton_Click(object sender, RoutedEventArgs e)
@@ -146,6 +167,24 @@ namespace WpfApp1
                 doc = doc.SearchAndReplace(translation.Key, translation.Value, true);
 
             return doc.DocumentByteArray;
+        }
+        private int GetNextEmployeeId()
+        {
+            int nextId = 0;
+            using (var connection = new SQLiteConnection("Data Source=users.db"))
+            {
+                connection.Open();
+                string query = "SELECT MAX(Id) FROM Employees";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
+                {
+                    object result = cmd.ExecuteScalar();
+                    if (result != DBNull.Value)
+                    {
+                        nextId = Convert.ToInt32(result) + 1;
+                    }
+                }
+            }
+            return nextId;
         }
     }
 }
