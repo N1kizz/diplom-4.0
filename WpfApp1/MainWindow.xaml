@@ -1,8 +1,8 @@
 ﻿<Window x:Class="WpfApp1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Авторизация" Height="300" Width="300"
-        ResizeMode="NoResize" WindowStyle="SingleBorderWindow" Background="#FF282E37" Icon="/main_logo.png">
+        Title="Авторизация" Height="426" Width="455"
+        ResizeMode="NoResize" WindowStyle="SingleBorderWindow" Background="#FF282E37" Icon="/main_logo.png" FontFamily="Trebuchet MS">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="10"/>
@@ -45,21 +45,26 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Логин" Foreground="White" FontWeight="Bold"/>
-            <TextBox x:Name="UsernameTextBox" BorderBrush="#FFFFB92E" SelectionOpacity="2" Background="#FF282E37" Foreground="White"/>
-            <TextBlock Text="Пароль" Foreground="White" FontWeight="Bold"/>
-            <PasswordBox x:Name="PasswordBox" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White"/>
-            <Button Content="Войти" Click="LoginButton_Click" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" FontWeight="Bold"/>
-            <TextBlock x:Name="MessageTextBlock" Foreground="Red"/>
-            <Image Height="86" Width="122" Margin="0,0,175,0" Source="/main_logo.png">
-                <Image.OpacityMask>
-                    <ImageBrush ImageSource="/main_logo.png" Stretch="Fill"/>
-                </Image.OpacityMask>
-            </Image>
-            <Image Height="25" Width="166" Source="/logo2.png" Margin="125,-508,0,0">
+        <StackPanel Margin="0,0,0,-18">
+            <Image Height="61" Width="316" Source="/logo2.png" Margin="120,0,0,0">
                 <Image.OpacityMask>
                     <ImageBrush ImageSource="/logo2.png" Stretch="Fill"/>
+                </Image.OpacityMask>
+            </Image>
+            <TextBlock Text="Логин" Foreground="White" FontWeight="Bold" FontFamily="Trebuchet MS"/>
+            <TextBox x:Name="UsernameTextBox" BorderThickness="3" BorderBrush="#FFFFB92E" SelectionOpacity="2" Background="#FF282E37" Foreground="White"/>
+            <TextBlock Text="Пароль" Foreground="White" FontWeight="Bold" FontFamily="Trebuchet MS"/>
+            <PasswordBox x:Name="PasswordBox" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White"/>
+            <Button Content="Войти" Click="LoginButton_Click" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" FontWeight="Bold" Height="24" FontFamily="Trebuchet MS">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Image Height="131" Width="182" Margin="0,0,250,0" Source="/main_logo.png">
+                <Image.OpacityMask>
+                    <ImageBrush ImageSource="/main_logo.png" Stretch="Fill"/>
                 </Image.OpacityMask>
             </Image>
         </StackPanel>

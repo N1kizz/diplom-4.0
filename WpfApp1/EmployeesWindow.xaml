@@ -1,15 +1,38 @@
 ﻿<Window x:Class="WpfApp1.EmployeesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Сотрудники" Height="450" Width="800">
+        Title="Сотрудники" Height="450" Width="800" Background="#FF282E37">
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Поиск" Margin="10"/>
-            <TextBox x:Name="SearchTextBox" Margin="10" KeyUp="SearchTextBox_KeyUp"/>
+        <StackPanel Margin="0,0,254,0">
+            <TextBlock Text="Поиск" Margin="10,10,10,0" FontWeight="Bold" Foreground="White" FontFamily="Trebuchet MS"/>
+            <TextBox x:Name="SearchTextBox" Margin="10" KeyUp="SearchTextBox_KeyUp" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" FontWeight="Bold" FontFamily="Trebuchet MS" Foreground="White">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
 
-            <DataGrid x:Name="EmployeesDataGrid" AutoGenerateColumns="False" Margin="10" IsReadOnly="True">
+            <DataGrid x:Name="EmployeesDataGrid" Margin="10" IsReadOnly="True" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" AutoGenerateColumns="False" Width="493" FontFamily="Trebuchet MS">
+                <DataGrid.Resources>
+                    <!-- Стиль для ячеек -->
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Background" Value="#FF282E37"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+                    <!-- Стиль для строк -->
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Background" Value="#FF282E37"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+                    <!-- Стиль для заголовков столбцов -->
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FF282E37"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" CanUserResize="True"/>
                     <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}"/>
                     <DataGridTextColumn Header="Отчество" Binding="{Binding MiddleName}"/>
                     <DataGridTextColumn Header="Должность" Binding="{Binding Position}"/>
@@ -17,10 +40,30 @@
                     <DataGridTextColumn Header="Табельный номер" Binding="{Binding NumberTabel}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <StackPanel x:Name="FunButtons" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                <Button x:Name="AddButton" Content="Добавить" Click="AddButton_Click" Margin="5"/>
-                <Button x:Name="EditButton" Content="Редактировать" Click="EditButton_Click" Margin="5"/>
-                <Button x:Name="DeleteButton" Content="Удалить" Click="DeleteButton_Click" Margin="5"/>
+        </StackPanel>
+        <StackPanel Margin="546,0,0,0">
+            <StackPanel x:Name="FunButtons" Orientation="Vertical" HorizontalAlignment="Center" Margin="10" Height="167" Width="224">
+                <Button x:Name="AddButton" Content="Добавить" Click="AddButton_Click" Margin="5,5,5,10" Background="#FF282E37" Foreground="White" BorderThickness="3" BorderBrush="#FFFFB92E" FontFamily="Trebuchet MS">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button x:Name="EditButton" Content="Редактировать" Click="EditButton_Click" Margin="5,5,5,10" Foreground="White" Background="#FF282E37" BorderThickness="3" BorderBrush="#FFFFB92E" FontFamily="Trebuchet MS">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button x:Name="DeleteButton" Content="Удалить" Click="DeleteButton_Click" Margin="5,5,5,10" Background="#FF282E37" Foreground="White" BorderThickness="3" BorderBrush="#FFFFB92E" FontFamily="Trebuchet MS">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
             </StackPanel>
         </StackPanel>
     </Grid>

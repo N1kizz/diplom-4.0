@@ -1,17 +1,40 @@
 ﻿<Window x:Class="WpfApp1.DashboardWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Главное меню" Height="450" Width="525"
-        ResizeMode="NoResize" WindowStyle="SingleBorderWindow">
+        Title="Главное меню" Height="403" Width="722"
+        ResizeMode="NoResize" WindowStyle="SingleBorderWindow" Background="#FF282E37" Icon="/main_logo.png">
     <Grid>
-        <Menu Height="25" VerticalAlignment="Top">
-            <MenuItem Header="Админ-панель" Click="MenuItem_Click_1"></MenuItem>
-            <MenuItem Header="Выход" Click="MenuItem_Click" ></MenuItem>
+        <Menu Height="20" VerticalAlignment="Top" Background="#FFFFB92E">
+            <MenuItem Header="Админ-панель" Click="MenuItem_Click_1" FontWeight="Bold" FontFamily="Trebuchet MS"></MenuItem>
+            <MenuItem Header="Выход" Click="MenuItem_Click" FontWeight="Bold" FontFamily="Trebuchet MS" ></MenuItem>
         </Menu>
-        <StackPanel Margin="0,25,0,0">
-            <Button Content="Сотрудники" Click="EmployeesButton_Click" Margin="10"/>
-            <Button Content="Отпуска" Margin="10"/>
-            <Button Content="Больничные" Margin="10"/>
+        <StackPanel Margin="0,20,-37,0">
+            <Button Content="Сотрудники" Click="EmployeesButton_Click" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" FontWeight="Bold" Margin="-100,25,500,10" Width="256" Height="37" FontFamily="Trebuchet MS">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Content="Отпуска" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" Margin="-100,10,500,10" FontWeight="Bold" Height="37" Width="256" FontFamily="Trebuchet MS">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Content="Больничные" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" Margin="-100,10,500,10" FontWeight="Bold" Width="256" Height="37" FontFamily="Trebuchet MS">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </StackPanel>
+        <Image Source="/logo3.png" Margin="483,114,-3,-54">
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="/logo3.png"/>
+            </Image.OpacityMask>
+        </Image>
     </Grid>
 </Window>

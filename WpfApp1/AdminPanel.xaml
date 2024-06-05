@@ -1,27 +1,77 @@
 ﻿<Window x:Class="WpfApp1.AdminPanel"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Админ меню" Height="470" Width="800"
-        ResizeMode="NoResize" WindowStyle="SingleBorderWindow">
+        Title="Админ меню" Height="530" Width="800"
+        ResizeMode="NoResize" WindowStyle="SingleBorderWindow" Background="#FF282E37">
     <Grid>
-        <TabControl>
-            <TabItem Header="Зарегистрировать пользователя">
+        <TabControl Background="#FF282E37" Foreground="Black">
+            <TabItem Header="Зарегистрировать пользователя" Background="#FF282E37" Foreground="#FFFFB92E">
                 <StackPanel Margin="10">
-                    <Label Content="Логин:" />
-                    <TextBox x:Name="NewUsernameTextBox" Margin="0,0,0,10"/>
-                    <Label Content="Пароль:" />
-                    <PasswordBox x:Name="NewPasswordBox" Margin="0,0,0,10"/>
-                    <Label Content="Роль:" />
-                    <ComboBox x:Name="RoleComboBox" Margin="0,0,0,10">
+                    <Label Content="Логин:" Foreground="White" FontFamily="Trebuchet MS" FontWeight="Bold"/>
+                    <TextBox x:Name="NewUsernameTextBox" Margin="0,0,0,10" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" Height="22"/>
+                    <Label Content="Пароль:" Foreground="White" FontFamily="Trebuchet MS" FontWeight="Bold"/>
+                    <PasswordBox x:Name="NewPasswordBox" Margin="0,0,0,10" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" Height="22"/>
+                    <Label Content="Роль:" Foreground="White" FontFamily="Trebuchet MS" FontWeight="Bold"/>
+                    <ComboBox x:Name="RoleComboBox" Margin="0,0,0,10" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" Height="22">
+                        <ComboBox.Resources>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ComboBox">
+                                            <Grid>
+                                                <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3"/>
+                                                <Popup x:Name="Popup" IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom">
+                                                    <Border x:Name="DropDownBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="White" CornerRadius="3">
+                                                        <ScrollViewer>
+                                                            <ItemsPresenter/>
+                                                        </ScrollViewer>
+                                                    </Border>
+                                                </Popup>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Background" Value="#FF282E37"/>
+                                <Setter Property="Padding" Value="5"/>
+                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            </Style>
+                        </ComboBox.Resources>
                         <ComboBoxItem Content="Гость"/>
                         <ComboBoxItem Content="Сотрудник"/>
                     </ComboBox>
-                    <Button Content="Зарегистрировать" Click="RegisterButton_Click" Margin="0,10,0,0"/>
+
+                    <Button Content="Зарегистрировать" Click="RegisterButton_Click" Margin="0,10,0,0" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" FontWeight="Bold" Width="120" Height="30">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Пользовательские права">
-                <Grid>
-                    <DataGrid x:Name="UserPermissionsDataGrid" AutoGenerateColumns="False" Margin="10,10,10,102">
+            <TabItem Header="Пользовательские права" Background="#FF282E37" Foreground="#FFFFB92E">
+                <Grid Height="525">
+                    <DataGrid x:Name="UserPermissionsDataGrid" AutoGenerateColumns="False" Margin="10,10,10,172" Background="#FF282E37" Foreground="White" BorderBrush="#FFFFB92E" BorderThickness="3" FontFamily="Trebuchet MS">
+                        <DataGrid.Resources>
+                            <!-- Стиль для ячеек -->
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Setter Property="Background" Value="#FF282E37"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Style>
+                            <!-- Стиль для строк -->
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Setter Property="Background" Value="#FF282E37"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Style>
+                            <!-- Стиль для заголовков столбцов -->
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#FF282E37"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Style>
+                        </DataGrid.Resources>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Логин" Binding="{Binding Username}" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
@@ -29,7 +79,13 @@
                             <DataGridCheckBoxColumn Header="Функции" Binding="{Binding Functions}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button Content="Сохранить изменения" Click="SaveChangesButton_Click" Margin="276,342,276,26"/>
+                    <Button Content="Сохранить изменения" Click="SaveChangesButton_Click" Margin="320,355,320,101" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" FontWeight="Bold" Height="30">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -5,16 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Паспортные данные" Height="223" Width="364" ResizeMode="NoResize">
+        Title="Добавление паспортных данных" Height="223" Width="364" ResizeMode="NoResize" Background="#FF282E37">
     <Grid Margin="0,0,0,-6">
-        <Label Content="Паспорт" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,1,0,0"/>
-        <TextBox TextWrapping="Wrap" Name="idTextBox" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,5,0,0"/>
-        <Label Content="№" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="61,34,0,0"/>
-        <TextBox TextWrapping="Wrap" Name="idNumberTextBox" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,38,0,0"/>
-        <Label Content="Кем выдан" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,65,0,0"/>
-        <TextBox TextWrapping="Wrap" Name="issuedByTextBox" Width="235" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,68,0,0"/>
-        <Button x:Name="SaveButton" Content="Сохранить" HorizontalAlignment="Center" Margin="0,158,0,0" VerticalAlignment="Top" Click="SaveButton_Click"/>
-        <Label Content="Дата выдачи" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,106,0,0"/>
-        <DatePicker HorizontalAlignment="Left" Margin="95,108,0,0" VerticalAlignment="Top" Name="issueDatePicker" SelectedDateFormat="Short"/>
+        <Label Content="Паспорт" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,1,0,0" Foreground="White" FontFamily="Trebuchet MS" FontWeight="Bold"/>
+        <TextBox TextWrapping="Wrap" Name="idTextBox" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,5,0,0" BorderThickness="3" BorderBrush="#FFFFB92E" SelectionOpacity="2" Background="#FF282E37" Foreground="White"/>
+        <Label Content="№" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="61,34,0,0" FontFamily="Trebuchet MS" FontWeight="Bold" Foreground="White"/>
+        <TextBox TextWrapping="Wrap" Name="idNumberTextBox" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,38,0,0" BorderThickness="3" BorderBrush="#FFFFB92E" SelectionOpacity="2" Background="#FF282E37" Foreground="White"/>
+        <Label Content="Кем выдан" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,65,0,0" FontFamily="Trebuchet MS" FontWeight="Bold" Foreground="White"/>
+        <TextBox TextWrapping="Wrap" Name="issuedByTextBox" Width="235" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,68,0,0" BorderThickness="3" BorderBrush="#FFFFB92E" SelectionOpacity="2" Background="#FF282E37" Foreground="White"/>
+        <Button x:Name="SaveButton" Content="Сохранить" HorizontalAlignment="Center" Margin="0,158,0,0" VerticalAlignment="Top" Click="SaveButton_Click" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" FontWeight="Bold" Width="84" Height="28">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label Content="Дата выдачи" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,104,0,0" Foreground="White" FontFamily="Trebuchet MS" FontWeight="Bold"/>
+        <DatePicker HorizontalAlignment="Left" Margin="89,104,0,0" VerticalAlignment="Top" Name="issueDatePicker" SelectedDateFormat="Short" Width="124" Foreground="#FFA5A5A5" BorderBrush="{x:Null}">
+            <DatePicker.Resources>
+                <Style TargetType="DatePickerTextBox">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#FF282E37"/>
+                    <Setter Property="BorderBrush" Value="#FFFFB92E"/>
+                    <Setter Property="BorderThickness" Value="3"/>
+                </Style>
+            </DatePicker.Resources>
+        </DatePicker>
     </Grid>
 </Window>
