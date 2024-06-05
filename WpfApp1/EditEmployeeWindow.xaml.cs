@@ -95,6 +95,7 @@ namespace WpfApp1
                                 _tempPassportData = new TempIDData
                                 {
                                     PassportNumber = reader.IsDBNull(reader.GetOrdinal("PassportNumber")) ? string.Empty : reader.GetString(reader.GetOrdinal("PassportNumber")),
+                                    IdNumber = reader.IsDBNull(reader.GetOrdinal("IdNumber")) ? string.Empty : reader.GetString(reader.GetOrdinal("IdNumber")),
                                     IssuedBy = reader.IsDBNull(reader.GetOrdinal("IssuedBy")) ? string.Empty : reader.GetString(reader.GetOrdinal("IssuedBy")),
                                     IssueDate = reader.IsDBNull(reader.GetOrdinal("IssueDate")) ? DateTime.MinValue : reader.GetDateTime(reader.GetOrdinal("IssueDate"))
                                 };

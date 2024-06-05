@@ -17,6 +17,15 @@ namespace WpfApp1
         private ObservableCollection<Employee> _employees;
         private TempIDData _tempPassportData;
 
+        private string _tempGroupRegistration;
+        private string _tempCategoryRegistration;
+        private string _tempComposition;
+        private string _tempMilitaryRank;
+        private string _tempMilitarySpecialty;
+        private string _tempFitnessForService;
+        private string _tempMilitaryCommisariat;
+        private string _tempSpecialRegistration;
+
         public AddEmployeeWindow(ObservableCollection<Employee> employees)
         {
             InitializeComponent();
@@ -28,6 +37,7 @@ namespace WpfApp1
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+
             try
             {
                 List<string> missingFields = new List<string>();
@@ -101,11 +111,12 @@ namespace WpfApp1
                 using (var connection = new SQLiteConnection("Data Source=users.db"))
                 {
                     connection.Open();
-                    string query = "INSERT INTO PassportData (EmployeeId, PassportNumber, IssuedBy, IssueDate) VALUES (@EmployeeId, @PassportNumber, @IssuedBy, @IssueDate)";
+                    string query = "INSERT INTO PassportData (EmployeeId, PassportNumber, IdNumber, IssuedBy, IssueDate) VALUES (@EmployeeId, @PassportNumber, @IdNumber, @IssuedBy, @IssueDate)";
                     using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@EmployeeId", employeeId); // Здесь должно быть значение ID сотрудника
                         cmd.Parameters.AddWithValue("@PassportNumber", _tempPassportData.PassportNumber);
+                        cmd.Parameters.AddWithValue("@IdNumber", _tempPassportData.IdNumber);
                         cmd.Parameters.AddWithValue("@IssuedBy", _tempPassportData.IssuedBy);
                         cmd.Parameters.AddWithValue("@IssueDate", _tempPassportData.IssueDate.ToString("yyyy-MM-dd")); // Предполагается, что IssueDate типа DateTime
                         cmd.ExecuteNonQuery();
@@ -141,6 +152,47 @@ namespace WpfApp1
             catch (Exception ex)
             {
                 MessageBox.Show("Произошла ошибка при добавлении сотрудника: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            bool employeeAddedSuccessfully = true; // Пример
+
+            if (employeeAddedSuccessfully)
+            {
+                // Сохранение данных о военной регистрации
+                using (var connection = new SQLiteConnection("Data Source=users.db"))
+                {
+                    connection.Open();
+                    string query = "INSERT INTO MilitaryRegistration (GroupRegistration, CategoryRegistration, Composition, MilitaryRank, MilitarySpecialty, FitnessForService, MilitaryCommisariat, SpecialRegistration) " +
+                                   "VALUES (@GroupRegistration, @CategoryRegistration, @Composition, @MilitaryRank, @MilitarySpecialty, @FitnessForService, @MilitaryCommisariat, @SpecialRegistration)";
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@GroupRegistration", _tempGroupRegistration);
+                        cmd.Parameters.AddWithValue("@CategoryRegistration", _tempCategoryRegistration);
+                        cmd.Parameters.AddWithValue("@Composition", _tempComposition);
+                        cmd.Parameters.AddWithValue("@MilitaryRank", _tempMilitaryRank);
+                        cmd.Parameters.AddWithValue("@MilitarySpecialty", _tempMilitarySpecialty);
+                        cmd.Parameters.AddWithValue("@FitnessForService", _tempFitnessForService);
+                        cmd.Parameters.AddWithValue("@MilitaryCommisariat", _tempMilitaryCommisariat);
+                        cmd.Parameters.AddWithValue("@SpecialRegistration", _tempSpecialRegistration);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show("Данные о военной регистрации успешно сохранены", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Очистка временных переменных после успешного сохранения
+                _tempGroupRegistration = "";
+                _tempCategoryRegistration = "";
+                _tempComposition = "";
+                _tempMilitaryRank = "";
+                _tempMilitarySpecialty = "";
+                _tempFitnessForService = "";
+                _tempMilitaryCommisariat = "";
+                _tempSpecialRegistration = "";
+            }
+            else
+            {
+                MessageBox.Show("Не удалось добавить сотрудника", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
