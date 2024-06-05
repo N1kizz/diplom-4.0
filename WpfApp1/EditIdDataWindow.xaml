@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Редактирование паспортных данных" Height="223" Width="364" ResizeMode="NoResize" Background="#FF282E37">
+        Title="Редактирование паспортных данных" Height="223" Width="364" ResizeMode="NoResize" Background="#FF282E37" Icon="/main_logo.png">
     <Grid Margin="0,0,0,-6">
         <Label Content="Паспорт" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,1,0,0" Foreground="White" FontFamily="Trebuchet MS" FontWeight="Bold"/>
         <TextBox TextWrapping="Wrap" Name="idTextBox" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="89,5,0,0" BorderThickness="3" BorderBrush="#FFFFB92E" SelectionOpacity="2" Background="#FF282E37" Foreground="White"/>

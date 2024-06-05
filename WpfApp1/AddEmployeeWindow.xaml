@@ -1,7 +1,7 @@
 ﻿<Window x:Class="WpfApp1.AddEmployeeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Добавить сотрудника" Height="575" Width="401" Background="#FF282E37">
+        Title="Добавить сотрудника" Height="575" Width="401" Background="#FF282E37" Icon="/main_logo.png">
     <Grid Height="514" VerticalAlignment="Top">
 
         <StackPanel HorizontalAlignment="Left" Width="164" Margin="0,0,0,-5">

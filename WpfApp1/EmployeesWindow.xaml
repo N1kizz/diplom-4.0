@@ -1,7 +1,7 @@
 ﻿<Window x:Class="WpfApp1.EmployeesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Сотрудники" Height="450" Width="800" Background="#FF282E37">
+        Title="Сотрудники" Height="450" Width="800" Background="#FF282E37" Icon="/main_logo.png">
     <Grid>
         <StackPanel Margin="0,0,254,0">
             <TextBlock Text="Поиск" Margin="10,10,10,0" FontWeight="Bold" Foreground="White" FontFamily="Trebuchet MS"/>
