@@ -27,8 +27,6 @@ namespace WpfApp1
             _tempMillitaryData = new TempMillitaryData();
     }
 
-        SaveFileDialog fd = new SaveFileDialog();
-
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -105,11 +103,12 @@ namespace WpfApp1
                 using (var connection = new SQLiteConnection("Data Source=users.db"))
                 {
                     connection.Open();
-                    string query = "INSERT INTO MilitaryRegistration1 (GroupRegistration, CategoryRegistration, Composition, MilitaryRank, MilitarySpecialty, FitnessForService, MilitaryCommisariat, SpecialRegistration) " +
-                                   "VALUES (@GroupRegistration, @CategoryRegistration, @Composition, @MilitaryRank, @MilitarySpecialty, @FitnessForService, @MilitaryCommisariat, @SpecialRegistration)";
+                    string query = "INSERT INTO MilitaryRegistration1 (EmployeeId, GroupRegistration, CategotyRegistration, Composition, MilitaryRank, MilitarySpecialty, FitnessForService, MilitaryCommisariat, SpecialRegistration) " +
+                                   "VALUES (@EmployeeId, @GroupRegistration, @CategoryRegistration, @Composition, @MilitaryRank, @MilitarySpecialty, @FitnessForService, @MilitaryCommisariat, @SpecialRegistration)";
                     using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
                     {
                         //cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+                        cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
                         cmd.Parameters.AddWithValue("@GroupRegistration", _tempMillitaryData.TempGroupRegistration);
                         cmd.Parameters.AddWithValue("@CategoryRegistration", _tempMillitaryData.TempCategoryRegistration);
                         cmd.Parameters.AddWithValue("@Composition", _tempMillitaryData.TempComposition);
@@ -202,34 +201,6 @@ namespace WpfApp1
             {
                 _tempMillitaryData = millitaryRegWindow.GetTempMillitaryData();
             }
-        }
-
-        protected byte[] SearchAndReplace(byte[] file, IDictionary<string, string> translations)
-        {
-            WmlDocument doc = new WmlDocument(file.Length.ToString(), file);
-
-            foreach (var translation in translations)
-                doc = doc.SearchAndReplace(translation.Key, translation.Value, true);
-
-            return doc.DocumentByteArray;
-        }
-        private int GetNextEmployeeId()
-        {
-            int nextId = 0;
-            using (var connection = new SQLiteConnection("Data Source=users.db"))
-            {
-                connection.Open();
-                string query = "SELECT MAX(Id) FROM Employees";
-                using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
-                {
-                    object result = cmd.ExecuteScalar();
-                    if (result != DBNull.Value)
-                    {
-                        nextId = Convert.ToInt32(result) + 1;
-                    }
-                }
-            }
-            return nextId;
         }
     }
 }
