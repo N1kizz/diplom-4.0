@@ -59,27 +59,6 @@ namespace WpfApp1
 
                 int employeeId = GetNextEmployeeId();
 
-                string Surname = LastNameTextBox.Text;
-                string Name = FirstNameTextBox.Text;
-                string MiddleName = MiddleNameTextBox.Text;
-                string Birthday = BirthdayDatePicker.Text;
-                string BP = BirthdayPlaceTextBox.Text;
-                string BP1 = BP;
-                string BP2 = NationalityTextBox.Text;
-                string BP3 = "BP.Substring(50, BP.Length - 50)";
-                fd.Filter = "Text files(*.docx)|*.docx|All files(*.*)|*.*";
-                fd.ShowDialog();
-                var templateDoc = File.ReadAllBytes("T2.docx");
-                var generatedDoc = SearchAndReplace(templateDoc, new Dictionary<string, string>(){
-                    {"<Surname>", Surname},
-                    {"<Name>", Name},
-                    {"<Middlename>", MiddleName},
-                    {"<Birthday>", Birthday},
-                    {"<BP>", BP},
-                    {"<MillitaryName>", BP},
-                    {"<BP3>", BP2},
-                });
-                File.WriteAllBytes(fd.FileName, generatedDoc);
 
                 NewEmployee = new Employee
                 {
@@ -201,6 +180,24 @@ namespace WpfApp1
             {
                 _tempMillitaryData = millitaryRegWindow.GetTempMillitaryData();
             }
+        }
+        private int GetNextEmployeeId()
+        {
+            int nextId = 0;
+            using (var connection = new SQLiteConnection("Data Source=users.db"))
+            {
+                connection.Open();
+                string query = "SELECT MAX(Id) FROM Employees";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
+                {
+                    object result = cmd.ExecuteScalar();
+                    if (result != DBNull.Value)
+                    {
+                        nextId = Convert.ToInt32(result) + 1;
+                    }
+                }
+            }
+            return nextId;
         }
     }
 }

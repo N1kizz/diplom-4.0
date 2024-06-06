@@ -70,7 +70,14 @@ namespace WpfApp1
         }
         private void VacationButton_Click(object sender, RoutedEventArgs e)
         {
+            СontractsWindow contractsWindow = new СontractsWindow();
+            contractsWindow.ShowDialog();
+        }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MedicalExaminationsWindow medicalExaminationsWindow = new MedicalExaminationsWindow();
+            medicalExaminationsWindow.ShowDialog();
         }
     }
 }
