@@ -19,6 +19,7 @@
                     <Style TargetType="{x:Type DataGridCell}">
                         <Setter Property="Background" Value="#FF282E37"/>
                         <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
                     </Style>
                     <!-- Стиль для строк -->
                     <Style TargetType="{x:Type DataGridRow}">
@@ -32,14 +33,51 @@
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" CanUserResize="True"/>
-                    <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}"/>
-                    <DataGridTextColumn Header="Отчество" Binding="{Binding MiddleName}"/>
-                    <DataGridTextColumn Header="Должность" Binding="{Binding Position}"/>
-                    <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}"/>
-                    <DataGridTextColumn Header="Табельный номер" Binding="{Binding NumberTabel}"/>
+                    <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Отчество" Binding="{Binding MiddleName}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Должность" Binding="{Binding Position}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Табельный номер" Binding="{Binding NumberTabel}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
+
         </StackPanel>
         <StackPanel Margin="546,0,0,0">
             <StackPanel x:Name="FunButtons" Orientation="Vertical" HorizontalAlignment="Center" Margin="10" Height="167" Width="224">

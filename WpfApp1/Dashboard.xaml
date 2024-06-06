@@ -16,7 +16,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Content="Отпуска" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" Margin="-100,10,500,10" FontWeight="Bold" Height="37" Width="256" FontFamily="Trebuchet MS">
+            <Button x:Name="VacationButton" Content="Отпуска" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" Margin="-100,10,500,10" FontWeight="Bold" Height="37" Width="256" FontFamily="Trebuchet MS" Click="VacationButton_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>

@@ -68,5 +68,9 @@ namespace WpfApp1
                 MessageBox.Show("Отсутствие прав", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void VacationButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

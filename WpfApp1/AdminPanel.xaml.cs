@@ -111,5 +111,11 @@ namespace WpfApp1
         public string Password { get; set; }
         public string Role { get; set; }
         public int Functions { get; set; }
+        public List<string> YourRoleList { get; set; }
+
+        public UserPermission()
+        {
+            YourRoleList = new List<string> { "Гость", "Сотрудник" };
+        }
     }
 }

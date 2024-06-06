@@ -3,6 +3,37 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Админ меню" Height="530" Width="800"
         ResizeMode="NoResize" WindowStyle="SingleBorderWindow" Background="#FF282E37" Icon="/main_logo.png">
+    <Window.Resources>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#FF282E37"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="BorderBrush" Value="#FFFFB92E"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3"/>
+                            <Popup x:Name="Popup" IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom">
+                                <Border x:Name="DropDownBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="#FF282E37" CornerRadius="3">
+                                    <ScrollViewer>
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+            <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3">
+                <Grid>
+                    <Path x:Name="Arrow" Data="M 0 0 L 4 4 L 8 0 Z" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <TabControl Background="#FF282E37" Foreground="Black">
             <TabItem Header="Зарегистрировать пользователя" Background="#FF282E37" Foreground="#FFFFB92E">
@@ -12,6 +43,7 @@
                     <Label Content="Пароль:" Foreground="White" FontFamily="Trebuchet MS" FontWeight="Bold"/>
                     <PasswordBox x:Name="NewPasswordBox" Margin="0,0,0,10" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" Height="22"/>
                     <Label Content="Роль:" Foreground="White" FontFamily="Trebuchet MS" FontWeight="Bold"/>
+
                     <ComboBox x:Name="RoleComboBox" Margin="0,0,0,10" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" Height="22">
                         <ComboBox.Resources>
                             <Style TargetType="ComboBox">
@@ -19,15 +51,64 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="ComboBox">
                                             <Grid>
-                                                <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3"/>
-                                                <Popup x:Name="Popup" IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom">
-                                                    <Border x:Name="DropDownBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="White" CornerRadius="3">
-                                                        <ScrollViewer>
-                                                            <ItemsPresenter/>
+                                                <ToggleButton Name="ToggleButton" 
+                                          Template="{StaticResource ComboBoxToggleButton}" 
+                                          Grid.Column="2" 
+                                          Focusable="false"
+                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ClickMode="Press"
+                                          Background="{TemplateBinding Background}"
+                                          BorderBrush="{TemplateBinding BorderBrush}"
+                                          BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <Path x:Name="Arrow" Data="M 0 0 L 4 4 L 8 0 Z"
+                                      Fill="White"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                                                </ToggleButton>
+                                                <ContentPresenter Name="ContentSite"
+                                              IsHitTestVisible="False"
+                                              Content="{TemplateBinding SelectionBoxItem}"
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                              Margin="3,3,23,3"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"/>
+                                                <Popup Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                                    <Grid Name="DropDown"
+                                      SnapsToDevicePixels="True"
+                                      MinWidth="{TemplateBinding ActualWidth}"
+                                      MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                                        <Border Name="DropDownBorder"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="1"
+                                            Background="White"/>
+                                                        <ScrollViewer Margin="4,6,4,6"
+                                                  SnapsToDevicePixels="True">
+                                                            <StackPanel IsItemsHost="True"
+                                                    KeyboardNavigation.DirectionalNavigation="Contained"/>
                                                         </ScrollViewer>
-                                                    </Border>
+                                                    </Grid>
                                                 </Popup>
                                             </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="HasItems" Value="false">
+                                                    <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                                                </Trigger>
+                                                <Trigger Property="IsEnabled" Value="false">
+                                                    <Setter Property="Foreground" Value="Gray"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="Background" Value="#FF3C3F45"/>
+                                                </Trigger>
+                                                <Trigger Property="IsDropDownOpen" Value="true">
+                                                    <Setter Property="Background" Value="#FF3C3F45"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </Setter.Value>
                                 </Setter>
@@ -37,6 +118,16 @@
                                 <Setter Property="Background" Value="#FF282E37"/>
                                 <Setter Property="Padding" Value="5"/>
                                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#FFFFB92E"/>
+                                        <Setter Property="Foreground" Value="#FF282E37"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FFFFB92E"/>
+                                        <Setter Property="Foreground" Value="#FF282E37"/>
+                                    </Trigger>
+                                </Style.Triggers>
                             </Style>
                         </ComboBox.Resources>
                         <ComboBoxItem Content="Гость"/>
@@ -54,8 +145,10 @@
             </TabItem>
             <TabItem Header="Пользовательские права" Background="#FF282E37" Foreground="#FFFFB92E">
                 <Grid Height="525">
-                    <DataGrid x:Name="UserPermissionsDataGrid" AutoGenerateColumns="False" Margin="10,10,10,172" Background="#FF282E37" Foreground="White" BorderBrush="#FFFFB92E" BorderThickness="3" FontFamily="Trebuchet MS">
+
+                    <DataGrid x:Name="UserPermissionsDataGrid" AutoGenerateColumns="False" Margin="10,10,10,172" Background="#FF282E37" BorderThickness="3" FontFamily="Trebuchet MS" BorderBrush="#FFFFB92E">
                         <DataGrid.Resources>
+                            
                             <!-- Стиль для ячеек -->
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Setter Property="Background" Value="#FF282E37"/>
@@ -71,14 +164,33 @@
                                 <Setter Property="Background" Value="#FF282E37"/>
                                 <Setter Property="Foreground" Value="White"/>
                             </Style>
+                            <!-- Стиль для выпадающего списка -->
+                            <Style TargetType="ComboBox">
+                                <Setter Property="Background" Value="#FF282E37"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderThickness" Value="3"/>
+                                <Setter Property="BorderBrush" Value="#FFFFB92E"/>
+                            </Style>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Логин" Binding="{Binding Username}" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
-                            <DataGridTextColumn Header="Роль" Binding="{Binding Role}"/>
+                            <DataGridTemplateColumn Header="Роль">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Role}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{Binding YourRoleList}" SelectedItem="{Binding Role}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridCheckBoxColumn Header="Функции" Binding="{Binding Functions}"/>
                         </DataGrid.Columns>
                     </DataGrid>
+
                     <Button Content="Сохранить изменения" Click="SaveChangesButton_Click" Margin="320,355,320,101" BorderThickness="3" BorderBrush="#FFFFB92E" Background="#FF282E37" Foreground="White" FontWeight="Bold" Height="30">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
