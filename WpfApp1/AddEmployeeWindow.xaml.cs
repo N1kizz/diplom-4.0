@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using OpenXmlPowerTools;
 using System.Data.SQLite;
 using System.Collections.ObjectModel;
+using static WpfApp1.MillitaryRegWindow;
 
 namespace WpfApp1
 {
@@ -16,22 +17,15 @@ namespace WpfApp1
         public Employee NewEmployee { get; private set; }
         private ObservableCollection<Employee> _employees;
         private TempIDData _tempPassportData;
-
-        private string _tempGroupRegistration;
-        private string _tempCategoryRegistration;
-        private string _tempComposition;
-        private string _tempMilitaryRank;
-        private string _tempMilitarySpecialty;
-        private string _tempFitnessForService;
-        private string _tempMilitaryCommisariat;
-        private string _tempSpecialRegistration;
+        private TempMillitaryData _tempMillitaryData;
 
         public AddEmployeeWindow(ObservableCollection<Employee> employees)
         {
             InitializeComponent();
             _employees = employees;
             _tempPassportData = new TempIDData();
-        }
+            _tempMillitaryData = new TempMillitaryData();
+    }
 
         SaveFileDialog fd = new SaveFileDialog();
 
@@ -111,6 +105,27 @@ namespace WpfApp1
                 using (var connection = new SQLiteConnection("Data Source=users.db"))
                 {
                     connection.Open();
+                    string query = "INSERT INTO MilitaryRegistration1 (GroupRegistration, CategoryRegistration, Composition, MilitaryRank, MilitarySpecialty, FitnessForService, MilitaryCommisariat, SpecialRegistration) " +
+                                   "VALUES (@GroupRegistration, @CategoryRegistration, @Composition, @MilitaryRank, @MilitarySpecialty, @FitnessForService, @MilitaryCommisariat, @SpecialRegistration)";
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
+                    {
+                        //cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+                        cmd.Parameters.AddWithValue("@GroupRegistration", _tempMillitaryData.TempGroupRegistration);
+                        cmd.Parameters.AddWithValue("@CategoryRegistration", _tempMillitaryData.TempCategoryRegistration);
+                        cmd.Parameters.AddWithValue("@Composition", _tempMillitaryData.TempComposition);
+                        cmd.Parameters.AddWithValue("@MilitaryRank", _tempMillitaryData.TempMilitaryRank);
+                        cmd.Parameters.AddWithValue("@MilitarySpecialty", _tempMillitaryData.TempMilitarySpecialty);
+                        cmd.Parameters.AddWithValue("@FitnessForService", _tempMillitaryData.TempFitnessForService);
+                        cmd.Parameters.AddWithValue("@MilitaryCommisariat", _tempMillitaryData.TempMilitaryCommisariat);
+                        cmd.Parameters.AddWithValue("@SpecialRegistration", _tempMillitaryData.TempSpecialRegistration);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                using (var connection = new SQLiteConnection("Data Source=users.db"))
+                {
+                    connection.Open();
                     string query = "INSERT INTO PassportData (EmployeeId, PassportNumber, IdNumber, IssuedBy, IssueDate) VALUES (@EmployeeId, @PassportNumber, @IdNumber, @IssuedBy, @IssueDate)";
                     using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
                     {
@@ -158,37 +173,11 @@ namespace WpfApp1
             if (employeeAddedSuccessfully)
             {
                 // Сохранение данных о военной регистрации
-                using (var connection = new SQLiteConnection("Data Source=users.db"))
-                {
-                    connection.Open();
-                    string query = "INSERT INTO MilitaryRegistration (GroupRegistration, CategoryRegistration, Composition, MilitaryRank, MilitarySpecialty, FitnessForService, MilitaryCommisariat, SpecialRegistration) " +
-                                   "VALUES (@GroupRegistration, @CategoryRegistration, @Composition, @MilitaryRank, @MilitarySpecialty, @FitnessForService, @MilitaryCommisariat, @SpecialRegistration)";
-                    using (SQLiteCommand cmd = new SQLiteCommand(query, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@GroupRegistration", _tempGroupRegistration);
-                        cmd.Parameters.AddWithValue("@CategoryRegistration", _tempCategoryRegistration);
-                        cmd.Parameters.AddWithValue("@Composition", _tempComposition);
-                        cmd.Parameters.AddWithValue("@MilitaryRank", _tempMilitaryRank);
-                        cmd.Parameters.AddWithValue("@MilitarySpecialty", _tempMilitarySpecialty);
-                        cmd.Parameters.AddWithValue("@FitnessForService", _tempFitnessForService);
-                        cmd.Parameters.AddWithValue("@MilitaryCommisariat", _tempMilitaryCommisariat);
-                        cmd.Parameters.AddWithValue("@SpecialRegistration", _tempSpecialRegistration);
-
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+               
 
                 MessageBox.Show("Данные о военной регистрации успешно сохранены", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 // Очистка временных переменных после успешного сохранения
-                _tempGroupRegistration = "";
-                _tempCategoryRegistration = "";
-                _tempComposition = "";
-                _tempMilitaryRank = "";
-                _tempMilitarySpecialty = "";
-                _tempFitnessForService = "";
-                _tempMilitaryCommisariat = "";
-                _tempSpecialRegistration = "";
             }
             else
             {
@@ -202,13 +191,17 @@ namespace WpfApp1
             if (passportDataWindow.ShowDialog() == true)
             {
                 _tempPassportData = passportDataWindow.GetTempPassportData();
+
             }
         }
 
         private void MillitaryRegButton_Click(object sender, RoutedEventArgs e)
         {
-            MillitaryRegWindow window = new MillitaryRegWindow();
-            window.ShowDialog();
+            MillitaryRegWindow millitaryRegWindow = new MillitaryRegWindow();
+            if (millitaryRegWindow.ShowDialog() == true)
+            {
+                _tempMillitaryData = millitaryRegWindow.GetTempMillitaryData();
+            }
         }
 
         protected byte[] SearchAndReplace(byte[] file, IDictionary<string, string> translations)

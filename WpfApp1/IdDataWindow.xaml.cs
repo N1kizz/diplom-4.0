@@ -43,6 +43,7 @@ namespace WpfApp1
         {
             _tempPassportData.PassportNumber = idNumberTextBox.Text;
             _tempPassportData.IssuedBy = issuedByTextBox.Text;
+            _tempPassportData.IdNumber = idNumberTextBox.Text; 
             _tempPassportData.IssueDate = issueDatePicker.SelectedDate ?? DateTime.MinValue;
 
             // Здесь не сохраняем в базу данных, а просто закрываем окно

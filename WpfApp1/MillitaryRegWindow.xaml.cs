@@ -19,32 +19,47 @@ namespace WpfApp1
     /// </summary>
     public partial class MillitaryRegWindow : Window
     {
-        private string _tempGroupRegistration;
-        private string _tempCategoryRegistration;
-        private string _tempComposition;
-        private string _tempMilitaryRank;
-        private string _tempMilitarySpecialty;
-        private string _tempFitnessForService;
-        private string _tempMilitaryCommisariat;
-        private string _tempSpecialRegistration;
+        private TempMillitaryData _tempMillitaryData;
 
         public MillitaryRegWindow()
         {
             InitializeComponent();
+            _tempMillitaryData = new TempMillitaryData();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            _tempGroupRegistration = GroupRegistrationTextBox.Text;
-            _tempCategoryRegistration = CategoryRegistrationTextBox.Text;
-            _tempComposition = CompositionTextBox.Text;
-            _tempMilitaryRank = MilitaryRankTextBox.Text;
-            _tempMilitarySpecialty = MilitarySpecialtyTextBox.Text;
-            _tempFitnessForService = FitnessForServiceTextBox.Text;
-            _tempMilitaryCommisariat = MilitaryCommisariatTextBox.Text;
-            _tempSpecialRegistration = SpecialRegistrationTextBox.Text;
+            _tempMillitaryData.TempGroupRegistration = GroupRegistrationTextBox.Text;
+            _tempMillitaryData.TempCategoryRegistration = CategoryRegistrationTextBox.Text;
+            _tempMillitaryData.TempComposition = CompositionTextBox.Text;
+            _tempMillitaryData.TempMilitaryRank = MilitaryRankTextBox.Text;
+            _tempMillitaryData.TempMilitarySpecialty = MilitarySpecialtyTextBox.Text;
+            _tempMillitaryData.TempFitnessForService = FitnessForServiceTextBox.Text;
+            _tempMillitaryData.TempMilitaryCommisariat = MilitaryCommisariatTextBox.Text;
+            _tempMillitaryData.TempSpecialRegistration = SpecialRegistrationTextBox.Text;
+
+
+            DialogResult = true;
+            Close();
 
             MessageBox.Show("Данные временно сохранены", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        public class TempMillitaryData
+        {
+            public string TempGroupRegistration {  get; set; }
+            public string TempCategoryRegistration { get; set; }
+            public string TempComposition { get; set; }
+            public string TempMilitaryRank { get; set; }
+            public string TempMilitarySpecialty { get; set; }
+            public string TempFitnessForService { get; set; }
+            public string TempMilitaryCommisariat { get; set; }
+            public string TempSpecialRegistration { get; set; }
+        }
+
+        public TempMillitaryData GetTempMillitaryData()
+        {
+            return _tempMillitaryData;
         }
     }
 }
